@@ -1,61 +1,63 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:backgroundTint="@color/cardview_dark_background"
     android:background="@drawable/wallpaper"
     tools:context=".MainActivity">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:orientation="vertical"
+        android:layout_margin="5dp"
+        android:layout_height="match_parent">
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/my_toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="?attr/colorPrimary"
+            android:elevation="4dp"
+            android:theme="@style/ThemeOverlay.AppCompat.ActionBar"
+            app:popupTheme="@style/ThemeOverlay.AppCompat.Light"/>
 
     <TextView
-        android:id="@+id/textView"
+        android:layout_marginTop="50dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="140dp"
+        android:text="Add a topic!"
+        android:textSize="25sp"
+        android:textColor="@android:color/white"
         android:layout_marginLeft="140dp"
-        android:layout_marginTop="124dp"
-        android:layout_marginEnd="141dp"
-        android:layout_marginRight="141dp"
-        android:text="Create a topic below"
-        android:textColor="#00BCD4"
-        android:textSize="24sp"
-        app:fontFamily="@font/aclonica"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:textAppearance="@style/TextAppearance.AppCompat.Large"
+        />
+        <EditText
+            android:id="@+id/topicid"
+            android:layout_marginLeft="40dp"
+            android:maxLines="2"
+            android:layout_marginRight="20dp"
+            android:textColorHint="@android:color/darker_gray"
+            android:layout_marginTop="100dp"
+            android:layout_width="match_parent"
+            android:layout_height="70dp"
+            android:background="@drawable/bg"
+            android:hint="Enter the voting topic here"
+            />
 
-    <EditText
-        android:id="@+id/editText5"
-        android:layout_width="wrap_content"
-        android:layout_height="150dp"
-        android:hint="   Create topic here"
-        android:maxLines="10"
-        android:layout_marginStart="98dp"
-        android:layout_marginLeft="98dp"
-        android:layout_marginTop="64dp"
-        android:layout_marginEnd="100dp"
-        android:layout_marginRight="100dp"
-        android:lineSpacingExtra="10dp"
-        android:ems="10"
-        android:background="@drawable/editbg"
-        android:inputType="textPersonName"
+        <Button
+            android:id="@+id/post_topic"
+            android:layout_marginTop="160dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:background="@android:color/holo_blue_dark"
+            android:text="Post Topic"
 
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView" />
 
-    <Button
-        android:id="@+id/button2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="253dp"
-        android:layout_marginLeft="253dp"
-        android:layout_marginTop="84dp"
-        android:layout_marginEnd="71dp"
-        android:layout_marginRight="71dp"
-        android:text="Publish"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editText5" />
-</androidx.constraintlayout.widget.ConstraintLayout>
+            />
+
+
+    </LinearLayout>
+</LinearLayout>

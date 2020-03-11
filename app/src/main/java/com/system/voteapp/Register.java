@@ -49,7 +49,7 @@ String email = EeditText.getText().toString().trim();
 String password = PeditText2.getText().toString().trim();
 
  if (email.isEmpty()){
-     EeditText.setError("Password box empy");
+     EeditText.setError("Password box empty");
  }
  if(password.isEmpty()||password.length() < 6){
      PeditText1.setError("Password should be more that six characters");
@@ -60,13 +60,13 @@ String password = PeditText2.getText().toString().trim();
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if(task.isSuccessful()){
-                            Toast.makeText(Register.this, "Account created successifully", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(Register.this, "Account created successfully", Toast.LENGTH_SHORT).show();
                             Intent loginlink = new Intent(getApplicationContext(),Login.class);
                             startActivity(loginlink);
 
 
                         }else{
-                            Toast.makeText(Register.this,"oops!"+ task.getException().getMessage(),Toast.LENGTH_LONG).show();
+                            Toast.makeText(Register.this,"Try again"+ task.getException().getMessage(),Toast.LENGTH_LONG).show();
                         }
                     }
                 });
