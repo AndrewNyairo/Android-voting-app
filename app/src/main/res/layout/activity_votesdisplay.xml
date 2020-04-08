@@ -35,13 +35,13 @@
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:orientation="vertical"
-            android:background="@drawable/back_design"
+            android:background="@android:color/holo_blue_dark"
             >
           <TextView
 
               android:layout_width="match_parent"
               android:layout_height="wrap_content"
-              android:text="Contestant 1"
+              android:text="YES"
               android:textSize="30sp"
               android:gravity="center"
               android:textAllCaps="true"
@@ -59,6 +59,7 @@
                 android:layout_marginBottom="25dp"
                 android:textSize="25sp"/>
             <TextView
+                android:id="@+id/yes_display_id"
                 android:layout_marginTop="50dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -74,13 +75,13 @@
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:orientation="vertical"
-            android:background="@drawable/back_design"
+            android:background="@android:color/holo_blue_dark"
             >
             <TextView
 
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Contestant 1"
+                android:text="NO"
                 android:textSize="30sp"
                 android:gravity="center"
                 android:textAllCaps="true"
@@ -98,6 +99,7 @@
                 android:layout_marginBottom="25dp"
                 android:textSize="25sp"/>
             <TextView
+                android:id="@+id/no_display_id"
                 android:layout_marginTop="50dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

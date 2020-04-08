@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:backgroundTint="@color/cardview_dark_background"
+    android:backgroundTint="@android:color/background_dark"
     android:background="@drawable/wallpaper"
     tools:context=".MainActivity">
     <LinearLayout
@@ -27,6 +27,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Add a topic!"
+
         android:textSize="25sp"
         android:textColor="@android:color/white"
         android:layout_marginLeft="140dp"
@@ -34,7 +35,7 @@
         />
 
         <EditText
-            android:id="@+id/topicid"
+            android:id="@+id/voting_topic_id"
             android:layout_width="match_parent"
             android:layout_height="183dp"
             android:layout_marginLeft="40dp"
@@ -46,7 +47,7 @@
             android:textColorHint="@android:color/darker_gray" />
 
         <Button
-            android:id="@+id/post_topic"
+            android:id="@+id/post_topic_id"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="20dp"
@@ -54,7 +55,7 @@
             android:layout_marginTop="160dp"
             android:layout_marginRight="20dp"
             android:textColor="@android:color/background_dark"
-            android:background="@drawable/ed_design"
+            android:background="@android:color/holo_green_dark"
             android:text="Post Topic"
 
 

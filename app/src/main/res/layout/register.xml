@@ -117,7 +117,7 @@
         android:layout_height="42dp"
         android:layout_marginTop="8dp"
         android:layout_marginBottom="8dp"
-        android:background="@drawable/registerbutton"
+        android:background="@android:color/holo_green_dark"
         android:text="@string/register"
         android:textColor="@android:color/white"
 

@@ -29,7 +29,7 @@ DatabaseReference Totalvotes;
 DatabaseReference total_yes;
 DatabaseReference total_no;
 DatabaseReference voting_topic;
-Boolean ifvotedvalue;
+Boolean ifvotedvalue = false;
 
 
 Integer yes=0;
@@ -96,7 +96,10 @@ String usermail;
                         database.addValueEventListener(postListener);
                         yes= yes +1;
                         total_yes.setValue(yes);
+                        ifvoted.setValue(true);
                         break;
+                    }else {
+                        Toast.makeText(getApplicationContext(),"you have alredy cast your vote",Toast.LENGTH_LONG).show();
                     }
             case R.id.no:
                 if (checked)
@@ -123,9 +126,11 @@ String usermail;
                         database.addValueEventListener(postListener);
                         no= no +1;
                         total_no.setValue(no);
+                        ifvoted.setValue(true);
                         break;
+                    }else{  Toast.makeText(getApplicationContext(),"you have alredy cast your vote",Toast.LENGTH_LONG).show();
                     }
-                    break;
+
         }
     }
 
