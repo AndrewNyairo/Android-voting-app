@@ -12,7 +12,9 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -21,6 +23,7 @@ import com.google.firebase.database.ValueEventListener;
 
 public class CastVote extends AppCompatActivity {
 FirebaseAuth mAuth;
+FirebaseUser user;
 FirebaseDatabase mDatabase;
 DatabaseReference database;
 DatabaseReference userid;
@@ -41,15 +44,23 @@ String usermail;
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_cast_vote);
-      usermail = mAuth.getInstance().getCurrentUser().getEmail();
-       database = mDatabase.getInstance().getReference("VoteApp");
-       Totalvotes = voting_topic.child("Total_Votes");
+        user = FirebaseAuth.getInstance().getCurrentUser();
+        /*if (user != null) {
+            usermail = user.getEmail().trim();
+        } else {
+            Toast.makeText(getApplicationContext(),"no user signed in",Toast.LENGTH_SHORT);
+        }*/
+      //usermail = mAuth.getInstance().getCurrentUser().getEmail();
+        database = mDatabase.getInstance().getReference("VoteApp");
+        voting_topic = database.child("Voting_Topic");
+        Totalvotes = voting_topic.child("Total_Votes");
+        usermail = database.push().getKey().trim();
+        userid = voting_topic.child(usermail);
+        total_yes = Totalvotes.child("total_yes");
+        total_no = Totalvotes.child("Total_no");
+        ifvoted = userid.child("ifvoted");
+        ifvoted.setValue(false);
 
-       total_yes = Totalvotes.child("total_yes");
-       total_no = Totalvotes.child("Total_no");
-       userid = voting_topic.child(usermail);
-       ifvoted =userid.child("ifvoted");
-       voting_topic = database.child("Voting_Topic");
        castvote = findViewById(R.id.submit_vote);
        castvote.setOnClickListener(new View.OnClickListener() {
            @Override
@@ -74,7 +85,7 @@ String usermail;
 
                 if (checked)
                     if (ifvotedvalue==false) {
-                        yes = 0;
+
                         ValueEventListener postListener = new ValueEventListener() {
                             @Override
                             public void onDataChange(DataSnapshot dataSnapshot) {
@@ -94,17 +105,22 @@ String usermail;
                             }
                         };
                         database.addValueEventListener(postListener);
-                        yes= yes +1;
-                        total_yes.setValue(yes);
-                        ifvoted.setValue(true);
-                        break;
-                    }else {
-                        Toast.makeText(getApplicationContext(),"you have alredy cast your vote",Toast.LENGTH_LONG).show();
+                        if (ifvotedvalue == false) {
+                            yes = yes + 1;
+                            total_yes.setValue(yes);
+                            ifvoted.setValue(true);
+                            startActivity(new Intent(getApplicationContext(),votesdisplay.class));
+                            break;
+                        } else {
+                            Toast.makeText(getApplicationContext(),"you have alredy cast your vote",Toast.LENGTH_LONG).show();
+
+                        }
                     }
+                else {  Toast.makeText(getApplicationContext(),"you have already cast your vote",Toast.LENGTH_LONG).show();}
             case R.id.no:
                 if (checked)
                     if (ifvotedvalue==false) {
-                        no=0;
+
                         ValueEventListener postListener = new ValueEventListener() {
                             @Override
                             public void onDataChange(DataSnapshot dataSnapshot) {
@@ -123,16 +139,21 @@ String usermail;
                                 // ...
                             }
                         };
-                        database.addValueEventListener(postListener);
-                        no= no +1;
-                        total_no.setValue(no);
-                        ifvoted.setValue(true);
-                        break;
-                    }else{  Toast.makeText(getApplicationContext(),"you have alredy cast your vote",Toast.LENGTH_LONG).show();
+                        if (ifvotedvalue== false) {
+                            database.addValueEventListener(postListener);
+                            no = no + 1;
+                            total_no.setValue(no);
+                            ifvoted.setValue(true);
+                            startActivity(new Intent(getApplicationContext(),votesdisplay.class));
+                            break;
+                        }
+                        else{  Toast.makeText(getApplicationContext(),"you have already cast your vote",Toast.LENGTH_LONG).show();
+                        }
                     }
-
+                else {
+                        Toast.makeText(getApplicationContext(),"you have already cast your vote",Toast.LENGTH_LONG).show();
         }
     }
 
 
-}
+}}

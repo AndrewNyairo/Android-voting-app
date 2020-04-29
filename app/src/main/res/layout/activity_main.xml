@@ -41,7 +41,7 @@
             android:layout_marginLeft="40dp"
             android:layout_marginTop="100dp"
             android:layout_marginRight="20dp"
-            android:background="@drawable/bg"
+            android:background="@android:color/white"
             android:hint="Enter the voting topic here"
             android:maxLines="2"
             android:textColorHint="@android:color/darker_gray" />
@@ -51,12 +51,12 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="20dp"
-            android:padding="20dp"
-            android:layout_marginTop="160dp"
+            android:layout_marginTop="30dp"
             android:layout_marginRight="20dp"
-            android:textColor="@android:color/background_dark"
             android:background="@android:color/holo_green_dark"
+            android:padding="20dp"
             android:text="Post Topic"
+            android:textColor="@android:color/background_dark"
 
 
             />

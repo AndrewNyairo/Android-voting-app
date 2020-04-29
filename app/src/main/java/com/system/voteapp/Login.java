@@ -18,9 +18,10 @@ import com.google.firebase.auth.FirebaseAuth;
 
 
 public class Login extends AppCompatActivity {
-    TextView signuptxtlink;
+    private TextView signuptxtlink;
     private FirebaseAuth fAuth;
-    EditText emaill, passwordd;
+    private EditText emaill, passwordd;
+    private Button linkit;
 
 
     @Override
@@ -28,7 +29,7 @@ public class Login extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
-        Button linkit =  findViewById(R.id.btn_login);
+        linkit =  findViewById(R.id.btn_login);
         signuptxtlink = findViewById(R.id.signup_text);
         emaill = findViewById(R.id.email_login);
         passwordd = findViewById(R.id.password_login);
