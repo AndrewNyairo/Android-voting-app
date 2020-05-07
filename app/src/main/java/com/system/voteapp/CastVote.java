@@ -21,6 +21,7 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
 public class CastVote extends AppCompatActivity {
@@ -37,6 +38,7 @@ DatabaseReference users;
 Integer yes = 0;
 Integer no = 0;
 Button castvote;
+String user_email;
 String usermail;
 
 
@@ -47,6 +49,7 @@ String usermail;
         user = mAuth.getInstance().getCurrentUser();
         if (user != null) {
             usermail = user.getUid();
+            user_email = user.getEmail();
         } else {
             Toast.makeText(getApplicationContext(),"no user signed in",Toast.LENGTH_SHORT);
         }
@@ -56,18 +59,16 @@ String usermail;
         users = voting_topic.child("users");
         total_yes = voting_topic.child("total_yes");
         total_no = voting_topic.child("total_no");
-        castvote = findViewById(R.id.submit_vote);
+        castvote = findViewById(R.id.logout_user);
+        castvote.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mAuth.getInstance().signOut();
+            }
+        });
 
 
-       castvote.setOnClickListener(new View.OnClickListener() {
-           @Override
-           public void onClick(View v) {
-               addVoter(usermail);
 
-               Intent success = new Intent(getApplicationContext(),votesdisplay.class);
-               startActivity(success);
-           }
-       });
 
 
 
@@ -88,17 +89,18 @@ String usermail;
             case R.id.yes:
 
                 if (checked){
-                  addVoter(usermail);
-                    
-
                     voting_topic.child("total_yes").addListenerForSingleValueEvent(new ValueEventListener() {
                         @Override
                         public void onDataChange(DataSnapshot dataSnapshot) {
+                            //checkIfHasVoted(usermail);
+
                             yes = dataSnapshot.getValue(Integer.class);
                             yes = yes + 1;
                             total_yes.setValue(yes);
+                            addVoter(usermail);
                             Toast.makeText(getApplicationContext()," you have succesifuly cast your vote",Toast.LENGTH_SHORT).show();
-
+                            Intent success = new Intent(getApplicationContext(),votesdisplay.class);
+                            startActivity(success);
 
                         }
 
@@ -116,15 +118,18 @@ String usermail;
 
             case R.id.no:
                 if (checked){
-                    addVoter(usermail);
+
                     voting_topic.child("total_no").addListenerForSingleValueEvent(new ValueEventListener() {
                         @Override
                         public void onDataChange(DataSnapshot dataSnapshot) {
+                           // checkIfHasVoted(usermail);
                             no = dataSnapshot.getValue(Integer.class);
                             no = no + 1;
                             total_no.setValue(no);
+                            addVoter(usermail);
                             Toast.makeText(getApplicationContext()," you have succesifuly cast your vote",Toast.LENGTH_SHORT).show();
-
+                            Intent success = new Intent(getApplicationContext(),votesdisplay.class);
+                            startActivity(success);
 
                         }
 
@@ -141,19 +146,28 @@ String usermail;
 
     }
 
-    public void addVoter(String useridd){
+    private void checkIfHasVoted() {
+        ValueEventListener eventListener = new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                if(!dataSnapshot.exists()) {
 
-        users.child(useridd);
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+         Toast.makeText(getApplicationContext(),databaseError.getMessage(),Toast.LENGTH_SHORT);
+            }
+        };
+        users.child(usermail).addListenerForSingleValueEvent(eventListener);
     }
 
+    private void addVoter(String useridd) {
+        userid voter = new userid(useridd);
+        users.child(useridd).setValue("voted");
 
-
-
-
-
-
-
-
+    }
 
 
 }

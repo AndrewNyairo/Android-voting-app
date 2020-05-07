@@ -15,20 +15,29 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 
 public class Login extends AppCompatActivity {
     private TextView signuptxtlink;
     private FirebaseAuth fAuth;
+    private FirebaseUser user;
     private EditText emaill, passwordd;
     private Button linkit;
+    String userauth;
+    String admin  = "johnsonyaanga@gmail.com".trim();
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-
+        user = fAuth.getInstance().getCurrentUser();
+        if (user != null) {
+            userauth = user.getEmail().trim();
+        } else {
+            Toast.makeText(getApplicationContext(),"no user signed in",Toast.LENGTH_SHORT);
+        }
         linkit =  findViewById(R.id.btn_login);
         signuptxtlink = findViewById(R.id.signup_text);
         emaill = findViewById(R.id.email_login);
@@ -45,11 +54,18 @@ fAuth.signInWithEmailAndPassword(emaill.getText().toString().trim(), passwordd.g
     @Override
     public void onComplete(@NonNull Task<AuthResult> task) {
         if(task.isSuccessful()){
-            Toast.makeText(Login.this, "you are in", Toast.LENGTH_SHORT).show();
-            Intent i = new Intent(getApplicationContext(), MainActivity.class);
-            startActivity(i);
+            if (admin != userauth){
+                Intent i = new Intent(getApplicationContext(), CastVote.class);
+                startActivity(i);
+                Toast.makeText(Login.this, userauth, Toast.LENGTH_SHORT).show();
+            }else {
+                Toast.makeText(Login.this,"you are not admin"+ userauth, Toast.LENGTH_SHORT).show();
+                Intent i = new Intent(getApplicationContext(), MainActivity.class);
+                startActivity(i);
+            }
+
         }else {
-            Toast.makeText(Login.this,"go to hell man, you suck"+task.getException().getMessage(),Toast.LENGTH_LONG).show();
+            Toast.makeText(Login.this,task.getException().getMessage(),Toast.LENGTH_LONG).show();
         }
 
     }

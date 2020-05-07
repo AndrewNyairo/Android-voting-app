@@ -54,13 +54,13 @@
         </LinearLayout>
     </RadioGroup>
 <Button
-    android:layout_width="match_parent"
+    android:layout_width="200dp"
     android:layout_height="wrap_content"
     android:background="@android:color/black"
-    android:text="Submit Vote"
+    android:text="Sign out"
     android:textColor="@android:color/white"
     android:layout_margin="20dp"
-    android:id="@+id/submit_vote"/>
+    android:id="@+id/logout_user"/>
 
 
 
