@@ -18,16 +18,12 @@ import com.google.firebase.database.FirebaseDatabase;
 public class MainActivity extends AppCompatActivity {
 EditText voting_topic_edittext;
 Button submit_topic_btn;
-String votingtopic;
+String votingtopictext;
 String usermail;
    private  FirebaseAuth mAuth;
    private FirebaseUser user;
     private FirebaseDatabase mDatabase;
     private DatabaseReference database;
-    private DatabaseReference ifvoted;
-    private DatabaseReference Totalvotes;
-    private DatabaseReference total_yes;
-    private DatabaseReference total_no;
     private DatabaseReference voting_topic;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,16 +31,15 @@ String usermail;
         setContentView(R.layout.activity_main);
         database = mDatabase.getInstance().getReference("VoteApp");
         voting_topic = database.child("Voting_Topic");
-
-        setSupportActionBar((Toolbar) findViewById(R.id.my_toolbar));
         voting_topic_edittext = findViewById(R.id.voting_topic_id);
-        votingtopic = voting_topic_edittext.toString().trim();
+        votingtopictext = voting_topic_edittext.getText().toString().trim();
         submit_topic_btn = findViewById(R.id.post_topic_id);
+        setSupportActionBar((Toolbar) findViewById(R.id.my_toolbar));
 
         submit_topic_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                voting_topic.setValue(votingtopic);
+
                 Intent success = new Intent(getApplicationContext(),CastVote.class);
                 startActivity(success);
             }

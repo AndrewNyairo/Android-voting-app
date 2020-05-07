@@ -10,8 +10,10 @@ import android.widget.RadioGroup;
 import android.widget.Toast;
 
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -24,47 +26,44 @@ import com.google.firebase.database.ValueEventListener;
 public class CastVote extends AppCompatActivity {
 FirebaseAuth mAuth;
 FirebaseUser user;
-FirebaseDatabase mDatabase;
+FirebaseDatabase  mDatabase;
 DatabaseReference database;
-DatabaseReference userid;
-DatabaseReference ifvoted;
-DatabaseReference Totalvotes;
+DatabaseReference voting_topic;
 DatabaseReference total_yes;
 DatabaseReference total_no;
-DatabaseReference voting_topic;
-Boolean ifvotedvalue = false;
+DatabaseReference users;
 
 
-Integer yes=0;
-Integer no=0;
+Integer yes = 0;
+Integer no = 0;
 Button castvote;
 String usermail;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_cast_vote);
-        user = FirebaseAuth.getInstance().getCurrentUser();
-        /*if (user != null) {
-            usermail = user.getEmail().trim();
+        user = mAuth.getInstance().getCurrentUser();
+        if (user != null) {
+            usermail = user.getUid();
         } else {
             Toast.makeText(getApplicationContext(),"no user signed in",Toast.LENGTH_SHORT);
-        }*/
-      //usermail = mAuth.getInstance().getCurrentUser().getEmail();
+        }
+
         database = mDatabase.getInstance().getReference("VoteApp");
         voting_topic = database.child("Voting_Topic");
-        Totalvotes = voting_topic.child("Total_Votes");
-        usermail = database.push().getKey().trim();
-        userid = voting_topic.child(usermail);
-        total_yes = Totalvotes.child("total_yes");
-        total_no = Totalvotes.child("Total_no");
-        ifvoted = userid.child("ifvoted");
-        ifvoted.setValue(false);
+        users = voting_topic.child("users");
+        total_yes = voting_topic.child("total_yes");
+        total_no = voting_topic.child("total_no");
+        castvote = findViewById(R.id.submit_vote);
 
-       castvote = findViewById(R.id.submit_vote);
+
        castvote.setOnClickListener(new View.OnClickListener() {
            @Override
            public void onClick(View v) {
+               addVoter(usermail);
+
                Intent success = new Intent(getApplicationContext(),votesdisplay.class);
                startActivity(success);
            }
@@ -75,85 +74,86 @@ String usermail;
 
 
     }
+
+
+
+
     public void onRadioButtonClicked(View view) {
         // Is the button now checked?
         boolean checked = ((RadioButton) view).isChecked();
 
         // Check which radio button was clicked
         switch(view.getId()) {
+
             case R.id.yes:
 
-                if (checked)
-                    if (ifvotedvalue==false) {
+                if (checked){
+                  addVoter(usermail);
+                    
 
-                        ValueEventListener postListener = new ValueEventListener() {
-                            @Override
-                            public void onDataChange(DataSnapshot dataSnapshot) {
-                                // Get Post object and use the values to update the UI
-                                ifvotedvalue = dataSnapshot.child("Voting_topic").child(usermail).child("ifvoted").getValue(Boolean.class);
-                                yes = dataSnapshot.child("Voting_topic").child("Total_Votes").child("total_yes").getValue(Integer.class);
-
-
-                            }
-
-                            @Override
-                            public void onCancelled(DatabaseError databaseError) {
-                                // Getting Post failed, log a message
-                                //Log.w(TAG, "loadPost:onCancelled", databaseError.toException());
-                                Toast.makeText(getApplicationContext(), databaseError.getMessage(), Toast.LENGTH_SHORT).show();
-                                // ...
-                            }
-                        };
-                        database.addValueEventListener(postListener);
-                        if (ifvotedvalue == false) {
+                    voting_topic.child("total_yes").addListenerForSingleValueEvent(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(DataSnapshot dataSnapshot) {
+                            yes = dataSnapshot.getValue(Integer.class);
                             yes = yes + 1;
                             total_yes.setValue(yes);
-                            ifvoted.setValue(true);
-                            startActivity(new Intent(getApplicationContext(),votesdisplay.class));
-                            break;
-                        } else {
-                            Toast.makeText(getApplicationContext(),"you have alredy cast your vote",Toast.LENGTH_LONG).show();
+                            Toast.makeText(getApplicationContext()," you have succesifuly cast your vote",Toast.LENGTH_SHORT).show();
+
 
                         }
-                    }
-                else {  Toast.makeText(getApplicationContext(),"you have already cast your vote",Toast.LENGTH_LONG).show();}
+
+                        @Override
+                        public void onCancelled(DatabaseError databaseError) {
+
+                        }
+                    });
+
+
+
+
+                }
+
+
             case R.id.no:
-                if (checked)
-                    if (ifvotedvalue==false) {
-
-                        ValueEventListener postListener = new ValueEventListener() {
-                            @Override
-                            public void onDataChange(DataSnapshot dataSnapshot) {
-                                // Get Post object and use the values to update the UI
-                                ifvotedvalue = dataSnapshot.child("Voting_topic").child(usermail).child("ifvoted").getValue(Boolean.class);
-                                no = dataSnapshot.child("Voting_topic").child("Total_Votes").child("total_no").getValue(Integer.class);
-
-
-                            }
-
-                            @Override
-                            public void onCancelled(DatabaseError databaseError) {
-                                // Getting Post failed, log a message
-                                //Log.w(TAG, "loadPost:onCancelled", databaseError.toException());
-                                Toast.makeText(getApplicationContext(), databaseError.getMessage(), Toast.LENGTH_SHORT).show();
-                                // ...
-                            }
-                        };
-                        if (ifvotedvalue== false) {
-                            database.addValueEventListener(postListener);
+                if (checked){
+                    addVoter(usermail);
+                    voting_topic.child("total_no").addListenerForSingleValueEvent(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(DataSnapshot dataSnapshot) {
+                            no = dataSnapshot.getValue(Integer.class);
                             no = no + 1;
                             total_no.setValue(no);
-                            ifvoted.setValue(true);
-                            startActivity(new Intent(getApplicationContext(),votesdisplay.class));
-                            break;
+                            Toast.makeText(getApplicationContext()," you have succesifuly cast your vote",Toast.LENGTH_SHORT).show();
+
+
                         }
-                        else{  Toast.makeText(getApplicationContext(),"you have already cast your vote",Toast.LENGTH_LONG).show();
+
+                        @Override
+                        public void onCancelled(DatabaseError databaseError) {
+
                         }
+                    });
+
+
+                }
+
                     }
-                else {
-                        Toast.makeText(getApplicationContext(),"you have already cast your vote",Toast.LENGTH_LONG).show();
-        }
+
+    }
+
+    public void addVoter(String useridd){
+
+        users.child(useridd);
     }
 
 
-}}
+
+
+
+
+
+
+
+
+
+}
