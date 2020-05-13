@@ -54,15 +54,11 @@ fAuth.signInWithEmailAndPassword(emaill.getText().toString().trim(), passwordd.g
     @Override
     public void onComplete(@NonNull Task<AuthResult> task) {
         if(task.isSuccessful()){
-            if (admin != userauth){
-                Intent i = new Intent(getApplicationContext(), CastVote.class);
-                startActivity(i);
-                Toast.makeText(Login.this, userauth, Toast.LENGTH_SHORT).show();
-            }else {
-                Toast.makeText(Login.this,"you are not admin"+ userauth, Toast.LENGTH_SHORT).show();
+
                 Intent i = new Intent(getApplicationContext(), MainActivity.class);
                 startActivity(i);
-            }
+                Toast.makeText(Login.this, userauth, Toast.LENGTH_SHORT).show();
+
 
         }else {
             Toast.makeText(Login.this,task.getException().getMessage(),Toast.LENGTH_LONG).show();

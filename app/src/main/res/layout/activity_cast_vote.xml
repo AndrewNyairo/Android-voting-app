@@ -5,18 +5,28 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:layout_margin="10dp"
     android:layout_marginBottom="20dp"
     tools:context=".CastVote">
+    <androidx.appcompat.widget.Toolbar xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/my_toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="@android:color/holo_blue_bright"
+        android:layout_marginBottom="15dp"
+        android:theme="@style/ThemeOverlay.AppCompat.Dark"
+        app:popupTheme="@style/ThemeOverlay.AppCompat.Light" />
+
 <TextView
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:text="Cast Vote Here"
     android:textSize="25sp"
+    android:fontFamily="@font/aclonica"
     android:gravity="center"
     android:textColor="@android:color/black"
     />
     <TextView
+        android:id="@+id/voting_title_id"
         android:layout_marginTop="20dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -25,42 +35,41 @@
         android:gravity="center"
         android:textColor="@android:color/black"
         />
-    <RadioGroup xmlns:android="http://schemas.android.com/apk/res/android"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/radiogroup"
-        android:layout_marginTop="20dp"
-        android:orientation="vertical">
         <LinearLayout
-
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal">
-        <RadioButton android:id="@+id/yes"
-            android:layout_marginRight="50dp"
-            android:layout_marginLeft="50dp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="YES"
-            android:textSize="23sp"
-            android:onClick="onRadioButtonClicked"/>
-        <RadioButton android:id="@+id/no"
-            android:layout_marginLeft="50dp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="23sp"
-            android:text="@string/ninjas"
-            android:onClick="onRadioButtonClicked"/>
+            android:layout_marginTop="30dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginLeft="10dp"
+            android:orientation="vertical">
+            <Button
+                android:id="@+id/vote_option1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="YES"
+                android:textColor="@android:color/white"
+                android:background="@drawable/round_button"
+                android:textColorHighlight="@android:color/white"
+                android:textSize="30sp"
+                />
+            <Button
+                android:layout_marginTop="20dp"
+                android:id="@+id/vote_option2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="NO"
+                android:textColor="@android:color/white"
+                android:background="@drawable/round_button"
+                android:textSize="30sp"
+                />
         </LinearLayout>
-    </RadioGroup>
-<Button
-    android:layout_width="200dp"
-    android:layout_height="wrap_content"
-    android:background="@android:color/black"
-    android:text="Sign out"
-    android:textColor="@android:color/white"
-    android:layout_margin="20dp"
-    android:id="@+id/logout_user"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="40dp"
+        android:textColor="@android:color/black"
+        android:id="@+id/showitmen"/>
 
 
 
@@ -72,6 +81,5 @@
 
 
 
+    </LinearLayout>
 
-
-</LinearLayout>

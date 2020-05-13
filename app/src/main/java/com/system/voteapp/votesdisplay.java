@@ -1,6 +1,8 @@
 package com.system.voteapp;
 
 import androidx.appcompat.app.AppCompatActivity;
+
+import android.content.Intent;
 import android.os.Bundle;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -56,6 +58,32 @@ public class votesdisplay extends AppCompatActivity {
 
 
 // Attach a listener to read the data at our posts reference
+         /*private void checkUserVoted(final String kitambulisho) {
+        users.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                    int i;
+                    i=0;
+                    i++;
+                    voting_topic.child("total_voters").setValue(i);
+
+
+
+
+                    }
+
+                }
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+
+    }*/
         voting_topic.child("total_yes").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {

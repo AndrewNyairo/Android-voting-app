@@ -22,7 +22,7 @@ public class Register extends AppCompatActivity {
     private FirebaseAuth mAuth;
     EditText EeditText, PeditText2, PeditText1;
 
-    TextView LtextView4;
+    TextView LtextView4,Logintextlink;
 
     Button Rbutton;
 
@@ -37,9 +37,16 @@ public class Register extends AppCompatActivity {
 
         EeditText   = findViewById(R.id.editText);
         PeditText2   = findViewById(R.id.editText2);
+        Logintextlink = findViewById(R.id.textView4);
         PeditText1   = findViewById(R.id.editText1);
         Rbutton   = findViewById(R.id.button);
-        LtextView4   = findViewById(R.id.textView4);
+        Logintextlink.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(getApplicationContext(),Login.class));
+            }
+        });
+       // LtextView4   = findViewById(R.id.textView4);
 
 
         Rbutton.setOnClickListener(new View.OnClickListener() {

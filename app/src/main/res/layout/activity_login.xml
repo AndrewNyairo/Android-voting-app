@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:background="@android:color/holo_blue_dark"
+    android:background="@drawable/wallpaper"
     android:orientation="vertical"
     android:layout_height="match_parent"
     tools:context=".Login">
@@ -12,66 +12,72 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Log in"
+        android:textColor="#577E8D"
+        android:textSize="24sp"
+        app:fontFamily="@font/aclonica"
         android:textAppearance="?android:textAppearanceLarge"
         android:gravity="center"
         />
+
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:orientation="vertical"
+            android:layout_height="match_parent"
             android:layout_marginTop="50dp"
-            android:layout_height="match_parent">
+            android:orientation="vertical">
 
             <EditText
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="15dp"
-                android:inputType="textEmailAddress"
-                android:hint="Email"
-                android:background="@android:color/holo_green_dark"
-                android:padding="10dp"
-                android:textColorHint="@android:color/white"
                 android:id="@+id/email_login"
-                />
-            <EditText
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:inputType="textPassword"
                 android:layout_margin="15dp"
-                android:background="@android:color/holo_green_dark"
+                android:background="@drawable/editbg"
+                android:hint="Email"
+                android:inputType="textEmailAddress"
                 android:padding="10dp"
-                android:hint="password"
+
+                android:textColorHint="#97C0C5" />
+
+            <EditText
                 android:id="@+id/password_login"
-                android:textColorHint="@android:color/white"
-                android:textColor="@android:color/white"/>
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="15dp"
+                android:background="@drawable/editbg"
+                android:hint="password"
+                android:inputType="textPassword"
+                android:padding="10dp"
+                android:textColor="@android:color/black"
+                android:textColorHint="#97C0C5" />
+
             <Button
+                android:id="@+id/btn_login"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="10dp"
-                android:text="Login"
-                android:textColor="@android:color/white"
+                android:background="@drawable/editbg"
+                android:backgroundTint="@android:color/holo_blue_bright"
                 android:padding="6dp"
-                android:background="@android:color/holo_green_dark"
-                android:id="@+id/btn_login"
+                android:text="Login"
                 android:textAppearance="?android:textAppearanceMedium"
-                />
+                android:textColor="@android:color/background_dark" />
+
             <TextView
+                android:id="@+id/signup_text"
                 android:layout_width="match_parent"
-                android:textColor="@android:color/white"
                 android:layout_height="wrap_content"
-                android:textAppearance="?android:textAppearanceSmall"
-                android:text="Dont have an account?Sign up here"
                 android:gravity="center"
                 android:padding="5dp"
-                android:id="@+id/signup_text"/>
+                android:text="Dont have an account?Sign up here"
+                android:textAppearance="?android:textAppearanceSmall"
+                android:textColor="@android:color/white" />
 
 
         </LinearLayout>
     </ScrollView>
-
 
 
 </LinearLayout>

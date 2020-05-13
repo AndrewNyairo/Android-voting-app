@@ -32,16 +32,20 @@ String usermail;
         database = mDatabase.getInstance().getReference("VoteApp");
         voting_topic = database.child("Voting_Topic");
         voting_topic_edittext = findViewById(R.id.voting_topic_id);
-        votingtopictext = voting_topic_edittext.getText().toString().trim();
+        //votingtopictext = voting_topic_edittext.getText().toString();
         submit_topic_btn = findViewById(R.id.post_topic_id);
         setSupportActionBar((Toolbar) findViewById(R.id.my_toolbar));
 
         submit_topic_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                voting_topic.child("voting_title").setValue(voting_topic_edittext.getText().toString());
+                //Toast.makeText(getApplicationContext(),votingtopictext,Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(MainActivity.this, CastVote.class);
+                intent.putExtra("topic",votingtopictext);
+                startActivity(intent);
 
-                Intent success = new Intent(getApplicationContext(),CastVote.class);
-                startActivity(success);
+
             }
         });
 
