@@ -39,10 +39,12 @@ public class votesdisplay extends AppCompatActivity {
         setContentView(R.layout.activity_votesdisplay);
         yes_display = findViewById(R.id.yes_display_id);
         no_display = findViewById(R.id.no_display_id);
-        Button reset = (Button) findViewById(R.id.reset_result);
+        final Button reset = (Button) findViewById(R.id.reset_result);
         user = FirebaseAuth.getInstance().getCurrentUser();
         database = mDatabase.getInstance().getReference("VoteApp");
         voting_topic = database.child("Voting_Topic");
+        total_yes = voting_topic.child("total_yes");
+        total_no = voting_topic.child("total_no");
 
         if (user != null) {
             usermail = user.getUid();
@@ -54,8 +56,8 @@ public class votesdisplay extends AppCompatActivity {
 reset.setOnClickListener(new View.OnClickListener() {
     @Override
     public void onClick(View v) {
-        total_no.setValue(0);
-        total_yes.setValue(0);
+resetALL();
+
     }
 });
 
@@ -131,5 +133,10 @@ reset.setOnClickListener(new View.OnClickListener() {
 
 
 
+    }
+
+    private void resetALL() {
+        total_yes.setValue(0);
+        total_no.setValue(0);
     }
 }
